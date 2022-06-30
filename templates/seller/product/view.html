@@ -1,0 +1,15 @@
+{% extends "seller/base.html" %}
+{% block title %}e-Auction{% endblock %}
+
+{% block navbar %}
+{% include "seller/nav.html" %}
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="m-5">
+        <h1>Product details:</h1>
+        <h2>Name: {{ product.name }}</h2>
+        <p>Description: {{ product.description }}</p>
+    </div>
+</div>
+{% endblock %}

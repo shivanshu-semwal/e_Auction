@@ -1,0 +1,18 @@
+{% extends "admins/base.html" %}
+{% block title %}e-Auction{% endblock %}
+
+{% block navbar %}
+{% include "admins/nav.html" %}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="mt-5">
+            <h2>Sessions List: </h2>
+            <ol>
+                {% for session in sessions %}
+                <li>{{ session.start_time }} - {{ session.end_time }}</li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+{% endblock %}

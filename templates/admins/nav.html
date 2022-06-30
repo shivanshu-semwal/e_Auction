@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"><i class="fa-solid fa-austral-sign"></i> e-Auction</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-link active">{{ request.resolver_match.url_name }}</li>
+            <li {% if request.resolver_match.url_name == 'admin_home' %}class="active" {% endif %} class="nav-item">
+                <a class="nav-link" href="{% url 'admin_home' %}"> <i class="fa-solid fa-house-chimney"></i> Home </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-chart-simple"></i> Categories
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'view_categories' %}">List Categories</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'add_categories' %}"><i class="fa-solid fa-circle-plus"></i> Add Category</a>
+                </div>
+            </li>
+            <li {% if request.resolver_match.url_name == 'admin_profile' %}class="active" {% endif %} class="nav-item">
+                <a class="nav-link" href="{% url 'admin_profile' %}"> <i class="fa-solid fa-user"></i> Profile</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a href="{% url 'logout_user' %}" class="btn btn-outline-primary"> <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a href="{% url 'login_user' %}" class="btn btn-outline-primary"> <i class="fa-solid fa-arrow-right-from-bracket"></i> Login</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

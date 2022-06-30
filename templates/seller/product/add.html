@@ -1,0 +1,27 @@
+{% extends "seller/base.html" %}
+{% block title %}e-Auction{% endblock %}
+
+{% block navbar %}
+{% include "seller/nav.html" %}
+{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+    <div class="mt-5">
+        {% if success %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            New new product added!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+        <h1>Add Product!</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <input type="submit" class="btn btn-primary" value="Add">
+        </form>
+    </div>
+</div>
+{% endblock %}

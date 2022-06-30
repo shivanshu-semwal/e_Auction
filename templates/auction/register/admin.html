@@ -1,0 +1,18 @@
+{% extends "auction/base.html" %}
+{% block title %}Register{% endblock %}
+{% block navbar %}
+{% include "auction/nav.html" %}
+{% endblock %}
+{% block content %}
+    {% load crispy_forms_tags %}
+    <div class="container">
+        <div class="mt-5">
+            <h1>Register new site admin here!</h1>
+            <form method="POST">
+                {% csrf_token %}
+                {{ user_form | crispy }}
+                <input type="submit" class="btn btn-primary" value="Register">
+            </form>
+        </div>
+    </div>
+{% endblock %}
