@@ -31,6 +31,9 @@
 - [bootstrap templates](https://mdbootstrap.com/docs/standard/extended/login/#!)
 - [django default date field](https://stackoverflow.com/questions/22846048/django-form-as-p-datefield-not-showing-input-type-as-date)
 - [django delete models](https://stackoverflow.com/questions/38388423/what-does-on-delete-do-on-django-models)
+- https://stackoverflow.com/questions/11241668/what-is-reverse
+- https://stackoverflow.com/questions/43179875/when-to-use-django-get-absolute-url-method
+- https://stackoverflow.com/questions/11686007/font-awesome-input-type-submit
 
 # License
 

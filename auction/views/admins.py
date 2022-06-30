@@ -5,7 +5,7 @@ from django.views.generic import (View, TemplateView,
                                   DeleteView)
 from django.utils.decorators import method_decorator
 from auction import models
-from django.urls import reverse
+from django.urls import reverse_lazy
 
 
 from django.utils.decorators import method_decorator
@@ -36,5 +36,12 @@ class CategoriesCreateView(CreateView):
     model = models.Category
     template_name = 'admins/category/add.html'
 
-    def get_absolute_url(self):
-        return reverse('categories')
+class CategoriesUpdateView(UpdateView):
+    fields = ('name',)
+    model = models.Category
+    template_name = 'admins/category/update.html'
+
+class CategoriesDeleteView(DeleteView):
+    model = models.Category
+    template_name = 'admins/category/delete.html'
+    success_url = reverse_lazy("view_categories")

@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.forms import ValidationError
 from django.db.models import Q, F
-
+from django.urls import reverse
 """Models for the auction system"""
 
 
@@ -59,6 +59,10 @@ class Category(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+
+    def get_absolute_url(self):
+        return reverse('category_detail', kwargs={'pk':self.pk})
 
 
 class Status(models.Model):

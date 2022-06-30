@@ -20,10 +20,11 @@ admins_url = [
     re_path(r"^$", admins.admin_home),
     path("home/", admins.admin_home, name='admin_home'),
     path("profile/", admins.admin_profile, name='admin_profile'),
-    re_path(r"categories/add", admins.CategoriesCreateView.as_view(),
-            name='add_categories'),
-    re_path(r"categories", admins.CategoriesListView.as_view(),
-            name='view_categories'),
+    re_path(r"categories/$", admins.CategoriesListView.as_view(), name='view_categories'),
+    re_path(r"^categories/(?P<pk>\d+)/$", admins.CategoriesDetailView.as_view(), name="category_detail"),
+    re_path(r"^categories/add$", admins.CategoriesCreateView.as_view(), name='add_categories'),
+    re_path(r"^categories/update/(?P<pk>\d+)/$", admins.CategoriesUpdateView.as_view(), name="category_update"),
+    re_path(r"^categories/delete/(?P<pk>\d+)/$", admins.CategoriesDeleteView.as_view(), name="category_delete"),
 ]
 
 seller_url = [
