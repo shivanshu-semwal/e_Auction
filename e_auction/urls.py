@@ -64,4 +64,4 @@ urlpatterns = [
     re_path(r"^admins/", include(admins_url)),
     re_path(r"^seller/", include(seller_url)),
     re_path(r"^bidder/", include(bidder_url)),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
