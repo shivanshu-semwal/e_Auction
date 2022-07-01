@@ -32,7 +32,7 @@ class Bidder(models.Model):
 class Seller(models.Model):
     """User: Auction User who will bid on the items"""
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name='auction_user')
+        User, on_delete=models.CASCADE, related_name='seller')
     dob = models.DateField(blank=True, null=True)
     address = models.CharField(max_length=100, blank=True, null=True)
     contact = models.CharField(max_length=20, blank=True, null=True)
@@ -47,7 +47,7 @@ class Seller(models.Model):
 class AdminUser(models.Model):
     """User: Auction User who will bid on the items"""
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name='administrator')
+        User, on_delete=models.CASCADE, related_name='admin')
 
     def __str__(self):
         return self.user.username
@@ -73,6 +73,7 @@ class Status(models.Model):
 
 
 class Product(models.Model):
+    creator = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='products')
     status = models.ForeignKey(
         Status, on_delete=models.CASCADE, null=True, related_name='products')
     name = models.CharField(max_length=100, null=True)

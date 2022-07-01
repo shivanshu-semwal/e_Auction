@@ -8,7 +8,7 @@
     <div class="container">
         <div class="mt-5">
             <h1>Register for bidding in auction here!</h1>
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ user_form | crispy }}
                 {{ auction_user_form | crispy }}

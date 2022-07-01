@@ -5,7 +5,7 @@ from django.views.generic import (View, TemplateView,
                                   DeleteView)
 from django.utils.decorators import method_decorator
 from auction import models
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django import forms
 
 
@@ -33,6 +33,9 @@ class ProductListView(ListView):
     model = models.Product
     template_name = 'seller/products.html'
 
+    def get_queryset(self):
+        return self.model.objects.filter(creator=self.request.user.seller)
+
 
 class ProductDetailView(DetailView):
     context_object_name = 'product'
@@ -46,9 +49,27 @@ class ProductCreateView(CreateView):
     model = models.Product
     template_name = 'seller/product/add.html'
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'].fields['start_time'].widget = DateTimeInput()
         context['form'].fields['end_time'].widget = DateTimeInput()
         return context
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user.seller
+        return super().form_valid(form)
+
+
+class ProductUpdateView(UpdateView):
+    fields = ('name', 'description', 'min_price',
+              'image', 'start_time', 'end_time')
+    model = models.Product
+    template_name = 'seller/product/update.html'
+    context_object_name = 'product'
+
+
+class ProductDeleteView(DeleteView):
+    model = models.Product
+    context_object_name = 'product'
+    template_name = 'seller/product/delete.html'
+    success_url = reverse_lazy("view_products")

@@ -8,23 +8,28 @@ from django.conf.urls.static import static
 
 register_url = [
     re_path(r"^$", register.register, name='register'),
-    re_path(r"new_auction_admin", register.create_auction_admin,
+    re_path(r"admin", register.create_auction_admin,
             name='new_auction_admin'),
-    re_path(r"new_auction_user", register.create_auction_seller,
-            name='new_auction_user'),
-    re_path(r"new_auction_bidder", register.create_auction_bidder,
-            name='new_auction_bidder'),
+    re_path(r"seller", register.create_auction_seller,
+            name='new_seller'),
+    re_path(r"bidder", register.create_auction_bidder,
+            name='new_bidder'),
 ]
 
 admins_url = [
     re_path(r"^$", admins.admin_home),
     path("home/", admins.admin_home, name='admin_home'),
     path("profile/", admins.admin_profile, name='admin_profile'),
-    re_path(r"categories/$", admins.CategoriesListView.as_view(), name='view_categories'),
-    re_path(r"^categories/(?P<pk>\d+)/$", admins.CategoriesDetailView.as_view(), name="category_detail"),
-    re_path(r"^categories/add$", admins.CategoriesCreateView.as_view(), name='add_categories'),
-    re_path(r"^categories/update/(?P<pk>\d+)/$", admins.CategoriesUpdateView.as_view(), name="category_update"),
-    re_path(r"^categories/delete/(?P<pk>\d+)/$", admins.CategoriesDeleteView.as_view(), name="category_delete"),
+    re_path(r"categories/$", admins.CategoriesListView.as_view(),
+            name='view_categories'),
+    re_path(r"^categories/(?P<pk>\d+)/$",
+            admins.CategoriesDetailView.as_view(), name="category_detail"),
+    re_path(r"^categories/add$", admins.CategoriesCreateView.as_view(),
+            name='add_categories'),
+    re_path(r"^categories/update/(?P<pk>\d+)/$",
+            admins.CategoriesUpdateView.as_view(), name="category_update"),
+    re_path(r"^categories/delete/(?P<pk>\d+)/$",
+            admins.CategoriesDeleteView.as_view(), name="category_delete"),
 ]
 
 seller_url = [
@@ -32,7 +37,12 @@ seller_url = [
     path("profile/", seller.seller_profile, name='seller_profile'),
     path("products/", seller.ProductListView.as_view(), name='view_products'),
     path("products/create/", seller.ProductCreateView.as_view(), name='add_product'),
-    re_path(r"products/(?P<pk>\d+)/$", seller.ProductDetailView.as_view(), name='product_detail'),
+    re_path(r"products/(?P<pk>\d+)/$",
+            seller.ProductDetailView.as_view(), name='product_detail'),
+    re_path(r"products/update/(?P<pk>\d+)/$",
+            seller.ProductUpdateView.as_view(), name='product_update'),
+    re_path(r"products/delete/(?P<pk>\d+)/$",
+            seller.ProductDeleteView.as_view(), name='product_delete'),
 ]
 
 bidder_url = [
