@@ -10,7 +10,6 @@ from django.contrib.auth.models import Group
 
 user = {
     'username': 'bidder',
-    'password': '123',
     'first_name': 'shivanshu',
     'last_name': 'semwal',
     'email': 'shivanshu@gmail.com',
@@ -24,6 +23,22 @@ if created:
         'user': user,
         'contact': '12345678',
         'address': 'india',
+    }
+    bidder, created = Bidder.objects.get_or_create(**bidder)
+    Group.objects.get(name='bidders').user_set.add(user)
+else:
+    print('User already exists ' + str(user))
+
+user = {
+    'username': 'default',
+}
+user, created = User.objects.get_or_create(**user)
+
+if created:
+    user.set_password('123')
+    user.save()
+    bidder = {
+        'user': user,
     }
     bidder, created = Bidder.objects.get_or_create(**bidder)
     Group.objects.get(name='bidders').user_set.add(user)

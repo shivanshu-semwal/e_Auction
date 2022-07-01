@@ -59,31 +59,37 @@ class Category(models.Model):
 
     def __str__(self) -> str:
         return self.name
-    
 
     def get_absolute_url(self):
-        return reverse('category_detail', kwargs={'pk':self.pk})
+        return reverse('category_detail', kwargs={'pk': self.pk})
 
 
-class Status(models.Model):
-    status = models.CharField(max_length=30, null=True)
-
-    def __str__(self):
-        return self.status
+class AuctionedProduct(models.Model):
+    STATUS_CHOICES = [
+        ('FAIL', 'Failed'),
+        ('SUCCESS', 'Sold'),
+        ('ACTIVE', 'Under Bidding'),
+        ('INACTIVE', 'Bidding not Started')
+    ]
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='INACTIVE')
+    amount = models.IntegerField()
+    bidder = models.ForeignKey(
+        Bidder, on_delete=models.CASCADE, related_name='auctioned_product')
 
 
 class Product(models.Model):
-    creator = models.ForeignKey(Seller, on_delete=models.CASCADE, related_name='products')
-    status = models.ForeignKey(
-        Status, on_delete=models.CASCADE, null=True, related_name='products')
+    creator = models.ForeignKey(
+        Seller, on_delete=models.CASCADE, related_name='products')
     name = models.CharField(max_length=100, null=True)
     description = models.CharField(max_length=1000, null=True)
     min_price = models.IntegerField(null=True)
     image = models.ImageField(upload_to='items_pics/', null=True)
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, null=True, related_name='products')
+        Category, on_delete=models.SET_NULL, null=True, related_name='products')
     start_time = models.DateTimeField(null=True)
     end_time = models.DateTimeField(null=False, validators=[])
+    auctioned = models.OneToOneField(
+        AuctionedProduct, on_delete=models.CASCADE, related_name='product')
 
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'pk': self.pk})
@@ -104,3 +110,17 @@ class Product(models.Model):
                 name='start_before_end'
             )
         ]
+
+class Bid(models.Model):
+    STATUS_CHOICES = [
+        ('FAIL', 'failed'),
+        ('SUCCESS', 'success'),
+        ('PENDING', 'pending'),
+    ]
+    amount = models.IntegerField()
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='bids')
+    bidder = models.ForeignKey(
+        Bidder, on_delete=models.CASCADE, related_name='bids')
+    price = models.IntegerField()
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='PENDING')

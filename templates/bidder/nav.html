@@ -12,6 +12,15 @@
             <li {% if request.resolver_match.url_name == 'bidder_profile' %}class="active" {% endif %} class="nav-item">
                 <a class="nav-link" href="{% url 'bidder_profile' %}"> <i class="fa-solid fa-user"></i> Profile</a>
             </li>
+            <li {% if request.resolver_match.url_name == 'bidder_profile' %}class="active" {% endif %} class="nav-item">
+                <a class="nav-link" href="{% url 'products_view' %}"> <i class="fa-solid fa-cart-shopping"></i> Shop</a>
+            </li>
+            <li {% if request.resolver_match.url_name == 'bidder_profile' %}class="active" {% endif %} class="nav-item">
+                <a class="nav-link" href=""><i class="fa-solid fa-store"></i> My Items</a>
+            </li>
+            <li {% if request.resolver_match.url_name == 'bidder_profile' %}class="active" {% endif %} class="nav-item">
+                <a class="nav-link" href="{% url 'bids_view' %}"><i class="fa-solid fa-hammer"></i> My Bids</a>
+            </li>
         </ul>
         <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}

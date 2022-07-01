@@ -1,0 +1,21 @@
+{% extends "bidder/base.html" %}
+{% block title %}e-Auction{% endblock %}
+
+{% block navbar %}
+{% include "bidder/nav.html" %}
+{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+    <div class="mt-5">
+        <h1>Bid on Product!</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <button type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-circle-plus"></i> Bid
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

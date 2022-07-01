@@ -48,6 +48,10 @@ seller_url = [
 bidder_url = [
     path("home/", bidder.bidder_home, name='bidder_home'),
     path("profile/", bidder.bidder_profile, name='bidder_profile'),
+    path("products/", bidder.ProductListView.as_view(), name='products_view'),
+    path("bids/", bidder.BidListView.as_view(), name='bids_view'),
+    path('bid/create/<int:product_pk>',
+         bidder.BidCreateView.as_view(), name='bid_create'),
 ]
 
 urlpatterns = [

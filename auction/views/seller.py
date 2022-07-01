@@ -57,6 +57,10 @@ class ProductCreateView(CreateView):
 
     def form_valid(self, form):
         form.instance.creator = self.request.user.seller
+        auctioned = models.AuctionedProduct(
+            bidder=models.User.objects.get(username='default').bidder, amount=form.instance.min_price)
+        auctioned.save()
+        form.instance.auctioned = auctioned
         return super().form_valid(form)
 
 

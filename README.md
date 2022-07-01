@@ -36,6 +36,8 @@
 - https://stackoverflow.com/questions/11686007/font-awesome-input-type-submit
 - https://freefrontend.com/bootstrap-product-cards/
 - https://stackoverflow.com/questions/59408167/list-of-current-user-objects-in-django-listview
+- https://stackoverflow.com/questions/34319752/how-to-raise-a-error-inside-form-valid-method-of-a-createview
+- https://docs.djangoproject.com/en/4.0/ref/forms/api/#django.forms.Form.add_error
 
 # License
 
