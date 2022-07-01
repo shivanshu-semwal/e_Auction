@@ -30,10 +30,9 @@ admins_url = [
 seller_url = [
     path("home/", seller.seller_home, name='seller_home'),
     path("profile/", seller.seller_profile, name='seller_profile'),
-    path("list/", seller.ProductListView.as_view(), name='view_products'),
-    re_path(r"view/(?P<pk>\d+)/$",
-            seller.ProductDetailView.as_view(), name='product'),
-    path("create/", seller.ProductCreateView.as_view(), name='add_product'),
+    path("products/", seller.ProductListView.as_view(), name='view_products'),
+    path("products/create/", seller.ProductCreateView.as_view(), name='add_product'),
+    re_path(r"products/(?P<pk>\d+)/$", seller.ProductDetailView.as_view(), name='product_detail'),
 ]
 
 bidder_url = [

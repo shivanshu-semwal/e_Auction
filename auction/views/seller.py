@@ -6,6 +6,11 @@ from django.views.generic import (View, TemplateView,
 from django.utils.decorators import method_decorator
 from auction import models
 from django.urls import reverse
+from django import forms
+
+
+class DateTimeInput(forms.DateTimeInput):
+    input_type = 'datetime-local'
 
 
 def seller_home(request):
@@ -37,9 +42,13 @@ class ProductDetailView(DetailView):
 
 class ProductCreateView(CreateView):
     fields = ('name', 'description', 'min_price',
-              'images', 'session', 'category')
+              'image', 'start_time', 'end_time')
     model = models.Product
     template_name = 'seller/product/add.html'
 
-    def get_absolute_url(self):
-        return reverse('sellers/product/view', kwargs={'pk': self.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'].fields['start_time'].widget = DateTimeInput()
+        context['form'].fields['end_time'].widget = DateTimeInput()
+        return context

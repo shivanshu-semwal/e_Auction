@@ -12,6 +12,16 @@
             <li {% if request.resolver_match.url_name == 'bidder_profile' %}class="active" {% endif %} class="nav-item">
                 <a class="nav-link" href="{% url 'bidder_profile' %}"> <i class="fa-solid fa-user"></i> Profile</a>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-store"></i> Products
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'view_products' %}"><i class="fa-solid fa-eye"></i> View Products</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'add_product' %}"><i class="fa-solid fa-circle-plus"></i> Add Products</a>
+                </div>
+              </li>
         </ul>
         <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}

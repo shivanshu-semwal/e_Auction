@@ -34,6 +34,7 @@
 - https://stackoverflow.com/questions/11241668/what-is-reverse
 - https://stackoverflow.com/questions/43179875/when-to-use-django-get-absolute-url-method
 - https://stackoverflow.com/questions/11686007/font-awesome-input-type-submit
+- https://freefrontend.com/bootstrap-product-cards/
 
 # License
 

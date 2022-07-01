@@ -7,9 +7,17 @@
 {% block content %}
 <div class="container">
     <div class="m-5">
-        <h1>Product details:</h1>
-        <h2>Name: {{ product.name }}</h2>
-        <p>Description: {{ product.description }}</p>
+        <div class="card m-1">
+            <img src="{% if product.image %}{{ product.image.url }}{% endif %}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.description }}</p>
+                <div class="d-flex flex-row justify-content-between mb-2">
+                    <div class="d-flex">Price</div>
+                    <div class="d-flex">&#8377; {{ product.min_price }}</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

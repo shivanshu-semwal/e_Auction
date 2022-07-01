@@ -78,11 +78,14 @@ class Product(models.Model):
     name = models.CharField(max_length=100, null=True)
     description = models.CharField(max_length=1000, null=True)
     min_price = models.IntegerField(null=True)
-    images = models.ImageField(upload_to='items_pics/', blank=True, null=True)
+    image = models.ImageField(upload_to='items_pics/', null=True)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, null=True, related_name='products')
     start_time = models.DateTimeField(null=True)
     end_time = models.DateTimeField(null=False, validators=[])
+
+    def get_absolute_url(self):
+        return reverse('product_detail', kwargs={'pk': self.pk})
 
     def clean(self) -> None:
         if self.start_time > self.end_time:
