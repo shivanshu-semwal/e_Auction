@@ -38,6 +38,16 @@
 - https://stackoverflow.com/questions/59408167/list-of-current-user-objects-in-django-listview
 - https://stackoverflow.com/questions/34319752/how-to-raise-a-error-inside-form-valid-method-of-a-createview
 - https://docs.djangoproject.com/en/4.0/ref/forms/api/#django.forms.Form.add_error
+- https://docs.djangoproject.com/en/4.0/ref/models/querysets/#get
+- https://docs.djangoproject.com/en/4.0/ref/forms/api/#django.forms.Form.add_error
+- https://stackoverflow.com/questions/59124344/pass-pk-to-createview-form-in-django
+- https://docs.djangoproject.com/en/4.0/ref/class-based-views/generic-editing/#django.views.generic.edit.CreateView
+- https://stackoverflow.com/questions/51114608/how-to-create-an-object-inside-the-createview-in-django
+- https://docs.djangoproject.com/en/4.0/ref/class-based-views/generic-display/
+- https://docs.djangoproject.com/en/4.0/topics/db/queries/#:~:text=Creating%20objects&text=To%20create%20an%20object%2C%20instantiate,save%20it%20to%20the%20database.&text=This%20performs%20an%20INSERT%20SQL,method%20has%20no%20return%20value.
+- https://stackoverflow.com/questions/13309479/django-createview-how-to-get-the-object-that-is-created
+- https://stackoverflow.com/questions/21855357/how-to-add-indian-standard-time-ist-in-django
+
 
 # License
 

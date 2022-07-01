@@ -8,7 +8,7 @@ from auction.decorators import unauthenticated_user
 
 
 def index(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and not request.user.is_superuser:
         group = request.user.groups.all()[0].name
         if group == 'sellers':
             return HttpResponseRedirect(reverse('seller_home'))

@@ -28,7 +28,7 @@ class BidCreateView(CreateView):
     fields = ('amount',)
     model = models.Bid
     template_name = 'bidder/bid/create.html'
-    success_url=reverse_lazy('bidder_home')
+    success_url = reverse_lazy('bidder_home')
 
     def form_valid(self, form):
         product = models.Product.objects.get(pk=self.kwargs['product_pk'])
@@ -36,11 +36,13 @@ class BidCreateView(CreateView):
         self.object.product = product
         self.object.bidder = self.request.user.bidder
         if self.object.amount <= self.object.product.auctioned.amount:
-            Form.add_error('Bid Higher!!')
+            form.add_error(field='amount', error='Bid Higher!!')
             return super().form_invalid(form)
         else:
-            self.object.product.auctioned.amount = self.object.amount
-            self.object.product.auctioned.bidder = self.object.bidder
+            auctioned_product = models.AuctionedProduct.objects.get(pk=self.object.product.auctioned.pk)
+            auctioned_product.amount = self.object.amount
+            auctioned_product.bidder = self.object.bidder
+            auctioned_product.save()
         self.object.save()
         return super().form_valid(form)
 
@@ -52,6 +54,7 @@ class BidListView(ListView):
 
     def get_queryset(self):
         return self.model.objects.filter(bidder=self.request.user.bidder)
+
 
 class ProductListView(ListView):
     model = models.Product
