@@ -1,1 +1,0 @@
-web: gunicorn e-auction.wsgi --log-file -

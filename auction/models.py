@@ -8,6 +8,14 @@ from django.utils import timezone
 """Models for the auction system"""
 
 
+class MemberFees(models.Model):
+    """Fee: Every bidder have to pay this fees"""
+    fee = models.CharField(max_length=20, null=True)
+
+    def __str__(self) -> str:
+        return self.fee
+
+
 class Bidder(models.Model):
     """User: Bidder who will post the items to bid on"""
     user = models.OneToOneField(
@@ -16,7 +24,6 @@ class Bidder(models.Model):
     address = models.CharField(max_length=100, blank=True, null=True)
     contact = models.CharField(max_length=20, blank=True, null=True)
     image = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
-    balance = models.IntegerField(default=100)
 
     def __str__(self):
         return self.user.username
@@ -30,7 +37,8 @@ class Seller(models.Model):
     address = models.CharField(max_length=100, blank=True, null=True)
     contact = models.CharField(max_length=20, blank=True, null=True)
     image = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
-    balance = models.IntegerField(default=1000)
+    membership = models.ForeignKey(
+        MemberFees, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.user.username
@@ -47,7 +55,7 @@ class AdminUser(models.Model):
 
 class Category(models.Model):
     """Main Category of the product"""
-    name = models.CharField(max_length=1000, null=False, unique=True)
+    name = models.CharField(max_length=100, null=False, unique=True)
 
     def __str__(self) -> str:
         return self.name
@@ -103,8 +111,13 @@ class Product(models.Model):
                 current.bidder = User.objects.get(username='dead').bidder
                 current.status = "FAILED"
             else:
+                # get the bid which won and set its status
+                bids = Bid.objects.filter(bidder=current.auctioned.bidder)
+                for bid in bids:
+                    bid.status = "FAIL"
+                    bid.save()
                 bid = Bid.objects.get(
-                    bidder=current.auctioned.bidder, amount=self.auctioned.amount, product=self)
+                    bidder=current.auctioned.bidder, amount=self.auctioned.amount)
                 bid.status = "SUCCESS"
                 bid.save()
                 current.status = "SUCCESS"
