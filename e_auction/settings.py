@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-ru!c^uu#2l1530h35%a@x*y$=-&m(x_95cs6-g49*ps1-b=etx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['shiv-auction.herokuapp.com/', '127.0.0.1']
+ALLOWED_HOSTS = ['https://shiv-auction.herokuapp.com/', '127.0.0.1']
 
 
 # Application definition
