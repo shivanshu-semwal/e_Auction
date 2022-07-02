@@ -39,7 +39,14 @@ class BidCreateView(CreateView):
             form.add_error(field='amount', error='Bid Higher!!')
             return super().form_invalid(form)
         else:
-            auctioned_product = models.AuctionedProduct.objects.get(pk=self.object.product.auctioned.pk)
+            # fail his old bids
+            bids = models.Bid.objects.filter(
+                bidder=self.object.bidder, product=self.object.product)
+            for bid in bids:
+                bid.status = "FAIL"
+                bid.save()
+            auctioned_product = models.AuctionedProduct.objects.get(
+                pk=self.object.product.auctioned.pk)
             auctioned_product.amount = self.object.amount
             auctioned_product.bidder = self.object.bidder
             auctioned_product.save()
