@@ -7,6 +7,7 @@ from django.utils import timezone
 
 """Models for the auction system"""
 
+UPDATE_REF = "just a reference for updating balance"
 
 class Bidder(models.Model):
     """User: Bidder who will post the items to bid on"""
@@ -105,6 +106,7 @@ class Product(models.Model):
                 current.status = "FAILED"
             else:
                 # get the bid which won and set its status
+                models.UPDATE_REF = "ref 2 - won bid"
                 bid = Bid.objects.get(
                     bidder=current.auctioned.bidder, amount=self.auctioned.amount, product=self)
                 bid.status = "SUCCESS"
@@ -153,7 +155,11 @@ class Bid(models.Model):
             return self.status
         else:
             if self.product.auctioned.bidder != self.bidder:
+                models.UPDATE_REF = "ref 2 - add back to balance"
                 current = Bid.objects.get(pk=self.pk)
+                bidder = Bidder.objects.get(pk=current.bidder.pk)
+                bidder.balance = bidder.balance + current.amount
+                bidder.save()
                 current.status = "FAIL"
                 current.save()
                 return current.status
