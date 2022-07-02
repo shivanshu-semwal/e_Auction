@@ -12,13 +12,13 @@
             <li {% if request.resolver_match.url_name == 'bidder_profile' %}class="active" {% endif %} class="nav-item">
                 <a class="nav-link" href="{% url 'bidder_profile' %}"> <i class="fa-solid fa-user"></i> Profile</a>
             </li>
-            <li {% if request.resolver_match.url_name == 'bidder_profile' %}class="active" {% endif %} class="nav-item">
+            <li {% if request.resolver_match.url_name == 'products_view' %}class="active" {% endif %} class="nav-item">
                 <a class="nav-link" href="{% url 'products_view' %}"> <i class="fa-solid fa-cart-shopping"></i> Shop</a>
             </li>
-            <li {% if request.resolver_match.url_name == 'bidder_profile' %}class="active" {% endif %} class="nav-item">
-                <a class="nav-link" href=""><i class="fa-solid fa-store"></i> My Items</a>
+            <li {% if request.resolver_match.url_name == 'bidder_items' %}class="active" {% endif %} class="nav-item">
+                <a class="nav-link" href="{% url 'bidder_items' %}"><i class="fa-solid fa-store"></i> My Items</a>
             </li>
-            <li {% if request.resolver_match.url_name == 'bidder_profile' %}class="active" {% endif %} class="nav-item">
+            <li {% if request.resolver_match.url_name == 'bids_view' %}class="active" {% endif %} class="nav-item">
                 <a class="nav-link" href="{% url 'bids_view' %}"><i class="fa-solid fa-hammer"></i> My Bids</a>
             </li>
         </ul>

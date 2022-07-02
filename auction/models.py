@@ -1,3 +1,4 @@
+from webbrowser import get
 from django.db import models
 from django.contrib.auth.models import User
 from django.forms import ValidationError
@@ -8,6 +9,7 @@ from django.utils import timezone
 """Models for the auction system"""
 
 UPDATE_REF = "just a reference for updating balance"
+
 
 class Bidder(models.Model):
     """User: Bidder who will post the items to bid on"""
@@ -53,7 +55,7 @@ class AdminUser(models.Model):
 class Category(models.Model):
     """Main Category of the product"""
     name = models.CharField(max_length=100, null=False, unique=True)
-    description = models.CharField(max_length=100, null=True, unique=True)
+    description = models.CharField(max_length=100, null=True)
 
     def __str__(self) -> str:
         return self.name
@@ -117,7 +119,7 @@ class Product(models.Model):
                 bid.save()
                 current.status = "SUCCESS"
                 c = Seller.objects.get(pk=current.creator.pk)
-                c.balance = c.balance + bid.balance
+                c.balance = c.balance + bid.amount
                 c.save()
             current.save()
             return current.status

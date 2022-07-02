@@ -51,10 +51,11 @@ bidder_url = [
     path("profile/", bidder.bidder_profile, name='bidder_profile'),
     re_path(r"profile/update/(?P<pk>\d+)/$", bidder.BidderUpdateView.as_view(), name='update_bidder_profile'),
     path("products/", bidder.ProductListView.as_view(), name='products_view'),
-    re_path(r"products/(?P<pk>\d+)/$",bidder.ProductDetailView.as_view(), name='product_detail_bid'),
+    re_path(r"products/(?P<pk>\d+)/$",bidder.ProductDetailView.as_view(), name='product_detail_bidder'),
     path("bids/", bidder.BidListView.as_view(), name='bids_view'),
     path('bid/create/<int:product_pk>',
          bidder.BidCreateView.as_view(), name='bid_create'),
+    path('items/', bidder.ItemsListView.as_view(), name='bidder_items')
 ]
 
 urlpatterns = [

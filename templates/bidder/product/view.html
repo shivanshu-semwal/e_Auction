@@ -1,8 +1,8 @@
-{% extends "seller/base.html" %}
+{% extends "bidder/base.html" %}
 {% block title %}e-Auction{% endblock %}
 
 {% block navbar %}
-{% include "seller/nav.html" %}
+{% include "bidder/nav.html" %}
 {% endblock %}
 {% block content %}
 <div class="container">
@@ -11,7 +11,7 @@
             <div class="col-3">
             </div>
             <div class="col-12 col-md-6">
-                <div class="shadow-lg p-3 mb-5 bg-white rounded card">
+                <div class="card">
                     <img src="{% if product.image %}{{ product.image.url }}{% endif %}" class="card-img-top" alt="...">
                     <div class="dropdown-divider"></div>
                     <div class="card-body">
@@ -33,22 +33,7 @@
                             <div class="d-flex"><b> <i class="fa-regular fa-calendar"></i> End Time</b></div>
                             <div class="d-flex">{{ product.end_time }}</div>
                         </div>
-                        <div class="d-flex flex-row justify-content-between mb-2">
-                            <div class="d-flex"><b> <i class="fa-solid fa-tags"></i> Category</b></div>
-                            {% if product.category %}
-                            <div class="d-flex"> {{ product.category }}</div>
-                            {% else %}
-                            <div class="d-flex"> Others</div>
-                            {% endif %}
-                        </div>
                     </div>
-                    {% if product.getStatus == "NOT_STARTED" %}
-                    <div class="dropdown-divider"></div>
-                    <div class="d-flex flex-md-row flex-sm-column mb-2">
-                        <div class="col m-1"> <a href="{% url 'product_update' pk=product.pk %}" class="btn btn-primary btn-block"><i class="fa-solid fa-pen-to-square"></i> Edit</a></div>
-                        <div class="col m-1"><a href="{% url 'product_delete' pk=product.pk %}" class="btn btn-danger btn-block"><i class="fa-solid fa-eraser"></i> Remove</a></div>
-                    </div>
-                    {% endif %}
                 </div>
             </div>
             <div class="col-3">

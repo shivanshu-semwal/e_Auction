@@ -1,16 +1,17 @@
-{% extends "seller/base.html" %}
+{% extends "bidder/base.html" %}
 {% block title %}e-Auction{% endblock %}
 
 {% block navbar %}
-{% include "seller/nav.html" %}
+{% include "bidder/nav.html" %}
 {% endblock %}
 {% block content %}
 <div class="container">
     <div class="m-5">
-        <h1>Products!</h1>
-        <h2>List of Products</h2>
+        <h1>Items you won!</h1>
+        <h2>List of Items</h2>
         <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3">
-            {% for product in products %}
+            {% for p in products %}
+            {% with product=p.product %}
             <div class="col">
                 <div class="shadow-lg p-3 mb-5 bg-white rounded card m-1">
                     <img src="{% if product.image %}{{ product.image.url }}{% endif %}" class="card-img-top" alt="...">
@@ -21,10 +22,15 @@
                             <div class="d-flex">Price</div>
                             <div class="d-flex">&#8377; {{ product.min_price }}</div>
                         </div>
-                        <a href="{{ product.id }}" class="btn btn-secondary btn-block">More <i class="fa-solid fa-circle-chevron-right"></i></a>
+                        {{ product.pk }}
                     </div>
+                    {% if product.pk %}
+                    <a href="{% url 'product_detail_bidder' pk=product.pk %}" class="btn btn-primary btn-block">Detail</a>
+                    {% endif %}
                 </div>
             </div>
+
+            {% endwith %}
             {% endfor %}
         </div>
     </div>

@@ -19,6 +19,7 @@ def bidder_home(request):
     return render(request, 'bidder/home.html')
 
 
+@allowed_users(['bidders'])
 def bidder_profile(request):
     seller = models.Bidder(request.user)
     return render(
@@ -64,6 +65,9 @@ class BidCreateView(CreateView):
                 form.add_error(
                     field='amount', error='Your account balance is less!!')
                 return super().form_invalid(form)
+            bidder = models.Bidder.objects.get(pk=self.object.bidder.pk)
+            bidder.balance =  bidder.balance - self.object.amount
+            bidder.save()
             auctioned_product = models.AuctionedProduct.objects.get(
                 pk=self.object.product.auctioned.pk)
             auctioned_product.amount = self.object.amount
@@ -99,7 +103,7 @@ class ProductListView(ListView):
 @method_decorator(allowed_users(['bidders']), name='dispatch')
 class ProductDetailView(DetailView):
     model = models.Product
-    template_name = 'bidder/products/detail.html'
+    template_name = 'bidder/product/view.html'
     context_object_name = 'product'
 
 
@@ -110,3 +114,16 @@ class BidderUpdateView(UpdateView):
     template_name = 'bidder/profile/update.html'
     success_url = reverse_lazy('bidder_home')
     context_object_name = 'bidder'
+
+
+@method_decorator(allowed_users(['bidders']), name='dispatch')
+class ItemsListView(ListView):
+    model = models.AuctionedProduct
+    template_name = 'bidder/items.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        products = models.Product.objects.all()
+        for product in products:
+            a = product.getStatus
+        return self.model.objects.filter(bidder=self.request.user.bidder)

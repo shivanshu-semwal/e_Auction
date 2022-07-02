@@ -32,7 +32,7 @@ def seller_profile(request):
     )
 
 
-@method_decorator(allowed_users(['seller']), name='dispatch')
+@method_decorator(allowed_users(['sellers']), name='dispatch')
 class ProductListView(ListView):
     context_object_name = 'products'
     model = models.Product
@@ -42,16 +42,16 @@ class ProductListView(ListView):
         return self.model.objects.filter(creator=self.request.user.seller)
 
 
-@method_decorator(allowed_users(['seller']), name='dispatch')
+@method_decorator(allowed_users(['sellers']), name='dispatch')
 class ProductDetailView(DetailView):
     context_object_name = 'product'
     model = models.Product
     template_name = 'seller/product/view.html'
 
 
-@method_decorator(allowed_users(['seller']), name='dispatch')
+@method_decorator(allowed_users(['sellers']), name='dispatch')
 class ProductCreateView(CreateView):
-    fields = ('name', 'description', 'min_price',
+    fields = ('name', 'description', 'min_price', 'category',
               'image', 'start_time', 'end_time')
     model = models.Product
     template_name = 'seller/product/add.html'
@@ -71,16 +71,16 @@ class ProductCreateView(CreateView):
         return super().form_valid(form)
 
 
-@method_decorator(allowed_users(['seller']), name='dispatch')
+@method_decorator(allowed_users(['sellers']), name='dispatch')
 class ProductUpdateView(UpdateView):
     fields = ('name', 'description', 'min_price',
-              'image', 'start_time', 'end_time')
+              'image', 'start_time', 'end_time', 'category')
     model = models.Product
     template_name = 'seller/product/update.html'
     context_object_name = 'product'
 
 
-@method_decorator(allowed_users(['seller']), name='dispatch')
+@method_decorator(allowed_users(['sellers']), name='dispatch')
 class ProductDeleteView(DeleteView):
     model = models.Product
     context_object_name = 'product'
@@ -88,7 +88,7 @@ class ProductDeleteView(DeleteView):
     success_url = reverse_lazy("view_products")
 
 
-@method_decorator(allowed_users(['seller']), name='dispatch')
+@method_decorator(allowed_users(['sellers']), name='dispatch')
 class SellerUpdateView(UpdateView):
     model = models.Seller
     fields = ('first_name', 'last_name', 'dob', 'address', 'contact', 'image')
