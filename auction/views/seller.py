@@ -4,6 +4,8 @@ from django.views.generic import (View, TemplateView,
                                   CreateView, UpdateView,
                                   DeleteView)
 from django.utils.decorators import method_decorator
+from auction.decorators import allowed_users
+
 from auction import models
 from django.urls import reverse, reverse_lazy
 from django import forms
@@ -13,10 +15,12 @@ class DateTimeInput(forms.DateTimeInput):
     input_type = 'datetime-local'
 
 
+@allowed_users(['sellers'])
 def seller_home(request):
     return render(request, 'seller/home.html')
 
 
+@allowed_users(['sellers'])
 def seller_profile(request):
     seller = models.Seller(request.user)
     return render(
@@ -28,6 +32,7 @@ def seller_profile(request):
     )
 
 
+@method_decorator(allowed_users(['seller']), name='dispatch')
 class ProductListView(ListView):
     context_object_name = 'products'
     model = models.Product
@@ -37,12 +42,14 @@ class ProductListView(ListView):
         return self.model.objects.filter(creator=self.request.user.seller)
 
 
+@method_decorator(allowed_users(['seller']), name='dispatch')
 class ProductDetailView(DetailView):
     context_object_name = 'product'
     model = models.Product
     template_name = 'seller/product/view.html'
 
 
+@method_decorator(allowed_users(['seller']), name='dispatch')
 class ProductCreateView(CreateView):
     fields = ('name', 'description', 'min_price',
               'image', 'start_time', 'end_time')
@@ -64,6 +71,7 @@ class ProductCreateView(CreateView):
         return super().form_valid(form)
 
 
+@method_decorator(allowed_users(['seller']), name='dispatch')
 class ProductUpdateView(UpdateView):
     fields = ('name', 'description', 'min_price',
               'image', 'start_time', 'end_time')
@@ -72,8 +80,18 @@ class ProductUpdateView(UpdateView):
     context_object_name = 'product'
 
 
+@method_decorator(allowed_users(['seller']), name='dispatch')
 class ProductDeleteView(DeleteView):
     model = models.Product
     context_object_name = 'product'
     template_name = 'seller/product/delete.html'
     success_url = reverse_lazy("view_products")
+
+
+@method_decorator(allowed_users(['seller']), name='dispatch')
+class SellerUpdateView(UpdateView):
+    model = models.Seller
+    fields = ('first_name', 'last_name', 'dob', 'address', 'contact', 'image')
+    template_name = 'seller/profile/update.html'
+    success_url = reverse_lazy('seller_home')
+    context_object_name = 'seller'

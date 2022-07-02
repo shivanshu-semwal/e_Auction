@@ -39,7 +39,7 @@ class NewSellerForm(forms.ModelForm):
 
     class Meta():
         model = Seller
-        fields = ('dob', 'address', 'contact', 'image')
+        fields = ('first_name', 'last_name', 'dob', 'address', 'contact', 'image')
 
 
 class NewBidderForm(forms.ModelForm):
@@ -53,4 +53,4 @@ class NewBidderForm(forms.ModelForm):
 
     class Meta():
         model = Bidder
-        fields = ('dob', 'address', 'contact', 'image')
+        fields = ('first_name', 'last_name', 'dob', 'address', 'contact', 'image')

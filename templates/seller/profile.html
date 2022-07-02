@@ -70,11 +70,11 @@
                     <div class="row mt-2">
                         <div class="col-md-6">
                             <label class="labels">Name</label>
-                            <input disabled type="label" class="readonly form-control" placeholder="No Name" value="{{ user.first_name }}">
+                            <input disabled type="label" class="readonly form-control" placeholder="No Name" value="{{ user.seller.first_name }}">
                         </div>
                         <div class="col-md-6">
                             <label class="labels">Surname</label>
-                            <input disabled type="text" class="readonly form-control" placeholder="No Surname" value="{{ user.last_name }}">
+                            <input disabled type="text" class="readonly form-control" placeholder="No Surname" value="{{ user.seller.last_name }}">
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -91,7 +91,7 @@
                             <input disabled type="text" class="form-control" placeholder="No Email" value="{{ user.email }}">
                         </div>
                     </div>
-                    <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Edit Profile</button></div>
+                    <div class="mt-5 text-center"><a class="btn btn-primary profile-button" href="{% url 'update_seller_profile' pk=user.seller.pk %}">Edit Profile</a></div>
                 </div>
             </div>
         </div>

@@ -1,15 +1,20 @@
-from turtle import update
 from django.forms import Form
 from django.shortcuts import render
-from django.views.generic import (View, TemplateView,
-                                  ListView, DetailView,
-                                  CreateView, UpdateView,
-                                  DeleteView)
+from django.views.generic import (
+    View, TemplateView,
+    ListView, DetailView,
+    CreateView, UpdateView,
+    DeleteView
+)
 from django.utils.decorators import method_decorator
+from auction.decorators import allowed_users
+
 from auction import models
 from django.urls import reverse, reverse_lazy
 from django.db.models import Q
 
+
+@allowed_users(['bidders'])
 def bidder_home(request):
     return render(request, 'bidder/home.html')
 
@@ -25,6 +30,7 @@ def bidder_profile(request):
     )
 
 
+@method_decorator(allowed_users(['bidders']), name='dispatch')
 class BidCreateView(CreateView):
     fields = ('amount',)
     model = models.Bid
@@ -54,6 +60,10 @@ class BidCreateView(CreateView):
                 bidder.save()
                 bid.status = "FAIL"
                 bid.save()
+            if self.object.amount > self.object.bidder.balance:
+                form.add_error(
+                    field='amount', error='Your account balance is less!!')
+                return super().form_invalid(form)
             auctioned_product = models.AuctionedProduct.objects.get(
                 pk=self.object.product.auctioned.pk)
             auctioned_product.amount = self.object.amount
@@ -63,6 +73,7 @@ class BidCreateView(CreateView):
         return super().form_valid(form)
 
 
+@method_decorator(allowed_users(['bidders']), name='dispatch')
 class BidListView(ListView):
     model = models.Bid
     template_name = 'bidder/bids.html'
@@ -72,6 +83,7 @@ class BidListView(ListView):
         return self.model.objects.filter(bidder=self.request.user.bidder)
 
 
+@method_decorator(allowed_users(['bidders']), name='dispatch')
 class ProductListView(ListView):
     model = models.Product
     template_name = 'bidder/products.html'
@@ -83,7 +95,18 @@ class ProductListView(ListView):
             a = product.getStatus
         return self.model.objects.filter(status__isnull=True)
 
+
+@method_decorator(allowed_users(['bidders']), name='dispatch')
 class ProductDetailView(DetailView):
     model = models.Product
     template_name = 'bidder/products/detail.html'
     context_object_name = 'product'
+
+
+@method_decorator(allowed_users(['bidders']), name='dispatch')
+class BidderUpdateView(UpdateView):
+    model = models.Bidder
+    fields = ('first_name', 'last_name', 'dob', 'address', 'contact', 'image')
+    template_name = 'bidder/profile/update.html'
+    success_url = reverse_lazy('bidder_home')
+    context_object_name = 'bidder'

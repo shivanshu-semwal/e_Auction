@@ -13,6 +13,8 @@ class Bidder(models.Model):
     """User: Bidder who will post the items to bid on"""
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='bidder')
+    first_name = models.CharField(max_length=100, blank=True, null=True)
+    last_name = models.CharField(max_length=100, blank=True, null=True)
     dob = models.DateField(blank=True, null=True)
     address = models.CharField(max_length=100, blank=True, null=True)
     contact = models.CharField(max_length=20, blank=True, null=True)
@@ -27,6 +29,8 @@ class Seller(models.Model):
     """User: Auction User who will bid on the items"""
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='seller')
+    first_name = models.CharField(max_length=100, blank=True, null=True)
+    last_name = models.CharField(max_length=100, blank=True, null=True)
     dob = models.DateField(blank=True, null=True)
     address = models.CharField(max_length=100, blank=True, null=True)
     contact = models.CharField(max_length=20, blank=True, null=True)
@@ -112,6 +116,9 @@ class Product(models.Model):
                 bid.status = "SUCCESS"
                 bid.save()
                 current.status = "SUCCESS"
+                c = Seller.objects.get(pk=current.creator.pk)
+                c.balance = c.balance + bid.balance
+                c.save()
             current.save()
             return current.status
 

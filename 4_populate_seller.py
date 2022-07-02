@@ -1,17 +1,15 @@
+from django.contrib.auth.models import Group
+from auction.models import Seller, User
+import django
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'e_auction.settings')
 
-import django
 django.setup()
 
 # now add data
-from auction.models import Seller, User
-from django.contrib.auth.models import Group
 
 user = {
     'username': 'seller',
-    'first_name': 'shivanshu123',
-    'last_name': 'semwal',
     'email': 'shivanshu@gmaill.com',
 }
 user, created = User.objects.get_or_create(**user)
@@ -23,6 +21,8 @@ if created:
         'user': user,
         'contact': '12345678',
         'address': 'india',
+        'first_name': 'shivanshu123',
+        'last_name': 'semwal',
     }
     seller, created = Seller.objects.get_or_create(**seller)
     Group.objects.get(name='sellers').user_set.add(user)

@@ -6,6 +6,19 @@ from auction import views
 
 from auction.decorators import unauthenticated_user
 
+from django.forms import Form
+from django.shortcuts import render
+from django.views.generic import (
+    View, TemplateView,
+    ListView, DetailView,
+    CreateView, UpdateView,
+    DeleteView
+)
+from django.utils.decorators import method_decorator
+from auction import models
+from django.urls import reverse, reverse_lazy
+from django.db.models import Q
+
 
 @unauthenticated_user
 def register(request):

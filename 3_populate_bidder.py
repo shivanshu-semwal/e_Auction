@@ -10,8 +10,7 @@ from django.contrib.auth.models import Group
 
 user = {
     'username': 'bidder',
-    'first_name': 'shivanshu',
-    'last_name': 'semwal',
+
     'email': 'shivanshu@gmail.com',
 }
 user, created = User.objects.get_or_create(**user)
@@ -23,6 +22,8 @@ if created:
         'user': user,
         'contact': '12345678',
         'address': 'india',
+        'first_name': 'shivanshu',
+        'last_name': 'semwal',
     }
     bidder, created = Bidder.objects.get_or_create(**bidder)
     Group.objects.get(name='bidders').user_set.add(user)

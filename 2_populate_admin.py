@@ -10,8 +10,6 @@ from django.contrib.auth.models import Group
 
 user = {
     'username': 'admin',
-    'first_name': 'shivanshu',
-    'last_name': 'semwal',
     'email': 'shi@gmail.com',
 }
 user, created = User.objects.get_or_create(**user)
