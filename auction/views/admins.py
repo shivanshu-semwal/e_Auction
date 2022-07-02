@@ -47,7 +47,7 @@ class CategoriesCreateView(CreateView):
 
 @method_decorator(allowed_users(['admins']), name='dispatch')
 class CategoriesUpdateView(UpdateView):
-    fields = ('name',)
+    fields = ('name', 'description')
     model = models.Category
     template_name = 'admins/category/update.html'
 
@@ -57,3 +57,27 @@ class CategoriesDeleteView(DeleteView):
     model = models.Category
     template_name = 'admins/category/delete.html'
     success_url = reverse_lazy("view_categories")
+
+
+@method_decorator(allowed_users(['admins']), name='dispatch')
+class ProductListView(ListView):
+    model = models.Product
+    template_name = 'admins/products.html'
+    context_object_name = 'products'
+
+@method_decorator(allowed_users(['admins']), name='dispatch')
+class ProductDetailView(DetailView):
+    model = models.Product
+    template_name = 'admins/product/view.html'
+    context_object_name = 'product'
+
+@method_decorator(allowed_users(['admins']), name='dispatch')
+class ReportCreateView(CreateView):
+    fields = ('title', 'description')
+    model = models.Report
+    template_name = 'admins/report/add.html'
+    success_url = reverse_lazy('admin_home')
+
+    def form_valid(self, form):
+        form.instance.product = models.Product.objects.get(pk=self.kwargs['product_pk'])
+        return super().form_valid(form)

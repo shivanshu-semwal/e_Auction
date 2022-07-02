@@ -5,7 +5,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-link active">{{ request.resolver_match.url_name }}</li>
             <li {% if request.resolver_match.url_name == 'admin_home' %}class="active" {% endif %} class="nav-item">
                 <a class="nav-link" href="{% url 'admin_home' %}"> <i class="fa-solid fa-house-chimney"></i> Home </a>
             </li>
@@ -21,6 +20,9 @@
             </li>
             <li {% if request.resolver_match.url_name == 'admin_profile' %}class="active" {% endif %} class="nav-item">
                 <a class="nav-link" href="{% url 'admin_profile' %}"> <i class="fa-solid fa-user"></i> Profile</a>
+            </li>
+            <li {% if request.resolver_match.url_name == 'product_list_admin' %}class="active" {% endif %} class="nav-item">
+                <a class="nav-link" href="{% url 'product_list_admin' %}"> <i class="fa-solid fa-basket-shopping"></i> Products</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">

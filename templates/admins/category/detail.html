@@ -8,8 +8,9 @@
 {% load crispy_forms_tags %}
 <div class="container">
     <div class="mt-5">
-        <h1> Categories Detail!</h1>
-        <div class="card">
+        <h1 class="font-weight-light"> Categories Detail!</h1>
+        <hr>
+        <div class="card shadow-lg p-3 mb-5 bg-white rounded">
             <div class="card-body">
                 <h5 class="card-title">Category - {{ category.name }}</h5>
                 <p class="card-text">{{ category.description }}</p>

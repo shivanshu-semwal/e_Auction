@@ -41,6 +41,22 @@
         cursor: pointer;
         border: solid 1px #BA68C8
     }
+
+    .border-right-my {
+        border-right: 1px solid #dee2e6 !important;
+    }
+
+    @media only screen and (min-width : 480px) {
+        .border-right-my {
+            border-right: none !important;
+        }
+    }
+
+    @media only screen and (min-width : 768px) {
+        .border-right-my {
+            border-right: 1px solid #dee2e6 !important;
+        }
+    }
 </style>
 {% endblock %}
 {% block navbar %}
@@ -50,7 +66,7 @@
 <div class="container">
     <div class="container rounded bg-white mt-5 mb-5">
         <div class="shadow-lg p-3 mb-5 bg-white rounded row">
-            <div class="col-md-3 border-right">
+            <div class="col-md-3 border-right-my">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                     {% if user.seller.image %}
                     <img class="rounded-circle mt-5" width="150px" src="{{ user.seller.image.url }}">

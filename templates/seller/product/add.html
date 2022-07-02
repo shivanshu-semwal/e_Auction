@@ -7,12 +7,13 @@
 {% block content %}
 {% load crispy_forms_tags %}
 <div class="container">
-    <div class="mt-5">
-        <h1>Add Product!</h1>
+    <div class="shadow-lg p-5 mb-5 bg-white rounded mt-5">
+        <h1 class="font-weight-light">Add Product!</h1>
+        <hr>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form | crispy }}
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary btn-block">
                 <i class="fa-solid fa-circle-plus"></i> Add
             </button>
         </form>

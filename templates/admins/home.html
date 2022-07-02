@@ -7,8 +7,13 @@
 {% block content %}
 <div class="container">
     <div class="m-5">
-        <h1>Welcome! to e-Auctions.</h1>
-        <h3>A place to make bids, put items for bidding and much more.</h3>
+        <div class="jumbotron shadow-lg rounded">
+            <h1 class="display-4">Welcome to e-Auction {{ user.username }}!</h1>
+            <hr class="my-4">
+            <p>
+                ....
+            </p>
+        </div>
     </div>
 </div>
 {% endblock %}

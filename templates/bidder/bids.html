@@ -7,12 +7,12 @@
 {% block content %}
 <div class="container">
     <div class="m-5">
-        <h1>Products!</h1>
-        <h2>List of Bids!</h2>
+        <h1 class="font-weight-light">Here are your bids!</h1>
+        <hr>
         <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3">
             {% for bid in bids %}
             <div class="col">
-                <div class="card m-1">
+                <div class="card m-1 shadow-lg p-3 mb-5 bg-white rounded">
                     <img src="{% if bid.product.image %}{{ bid.product.image.url }}{% endif %}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{ bid.product.name }}</h5>

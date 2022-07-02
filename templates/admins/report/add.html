@@ -1,19 +1,19 @@
-{% extends "seller/base.html" %}
+{% extends "admins/base.html" %}
 {% block title %}e-Auction{% endblock %}
 
 {% block navbar %}
-{% include "seller/nav.html" %}
+{% include "admins/nav.html" %}
 {% endblock %}
 {% block content %}
 {% load crispy_forms_tags %}
 <div class="container">
-    <div class="mt-5 shadow-lg p-3 mb-5 bg-white rounded p-5">
-        <h1>Update Product!</h1>
-        <form method="POST">
+    <div class="shadow-lg p-5 mb-5 bg-white rounded mt-5">
+        <h1>Report Product!</h1>
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form | crispy }}
             <button type="submit" class="btn btn-primary btn-block">
-                <i class="fa-solid fa-arrows-rotate"></i> Update
+                <i class="fa-solid fa-circle-plus"></i> Add
             </button>
         </form>
     </div>

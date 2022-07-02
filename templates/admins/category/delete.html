@@ -7,8 +7,9 @@
 {% block content %}
 {% load crispy_forms_tags %}
 <div class="container">
-    <div class="mt-5">
-        <h1>Remove category {{ category.name }}!</h1>
+    <div class="mt-5 shadow-lg p-3 mb-5 bg-white rounded p-5">
+        <h1 class="font-weight-light">Remove category {{ category.name }}!</h1>
+        <hr>
         <div class="alert alert-danger" role="alert">
             Note that this action cannot be undone!
         </div>

@@ -174,3 +174,9 @@ class Bid(models.Model):
                 return current.status
             else:
                 return "PENDING"
+
+
+class Report(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.CharField(max_length=1000)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)

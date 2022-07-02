@@ -1,8 +1,8 @@
-{% extends "bidder/base.html" %}
+{% extends "admins/base.html" %}
 {% block title %}e-Auction{% endblock %}
 
 {% block navbar %}
-{% include "bidder/nav.html" %}
+{% include "admins/nav.html" %}
 {% endblock %}
 {% block content %}
 <div class="container">
@@ -11,7 +11,7 @@
             <div class="col-3">
             </div>
             <div class="col-12 col-md-6">
-                <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="shadow-lg p-3 mb-5 bg-white rounded card">
                     <img src="{% if product.image %}{{ product.image.url }}{% endif %}" class="card-img-top" alt="...">
                     <div class="dropdown-divider"></div>
                     <div class="card-body">
@@ -26,18 +26,20 @@
                             </div>
                         </div>
                         <div class="d-flex flex-row justify-content-between mb-2">
-                            <div class="d-flex"><b>Your Bid</b></div>
-                            <div class="d-flex">
-                                <h3>&#8377; {{ product.auctioned.amount }}</h3>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row justify-content-between mb-2">
                             <div class="d-flex"><b><i class="fa-regular fa-calendar"></i> Start Time</b></div>
                             <div class="d-flex">{{ product.start_time }}</div>
                         </div>
                         <div class="d-flex flex-row justify-content-between mb-2">
                             <div class="d-flex"><b> <i class="fa-regular fa-calendar"></i> End Time</b></div>
                             <div class="d-flex">{{ product.end_time }}</div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between mb-2">
+                            <div class="d-flex"><b> Bidder</b></div>
+                            <div class="d-flex">{{ product.auctioned.bidder }}</div>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between mb-2">
+                            <div class="d-flex"><b> Bid Price </b></div>
+                            <div class="d-flex">&#8377; {{ product.auctioned.amount }}</div>
                         </div>
                         <div class="d-flex flex-row justify-content-between mb-2">
                             <div class="d-flex"><b> <i class="fa-solid fa-tags"></i> Category</b></div>
@@ -47,6 +49,13 @@
                             <div class="d-flex"> Others</div>
                             {% endif %}
                         </div>
+                    </div>
+                    <div class="m-1 rounded text-white p-1 bg-info text-center d-block" style="font-size: 1em">
+                        {{ product.getStatus }}
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="d-flex flex-md-row flex-sm-column mb-2">
+                        <a href="{% url 'report_product' product_pk=product.pk %}" class="btn btn-primary btn-block"><i class="fa-solid fa-flag"></i> Report</a>
                     </div>
                 </div>
             </div>

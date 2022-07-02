@@ -8,11 +8,12 @@
     {% load crispy_forms_tags %}
     <div class="container">
         <div class="mt-5">
-            <h1> Categories List!</h1>
+            <h1 class="font-weight-light"> Categories List!</h1>
+            <hr>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
                 {% for category in categories %}
                 <div class="col">
-                    <div class="card m-1">
+                    <div class="card m-1 shadow-lg p-3 mb-5 bg-white rounded">
                         <div class="card-body">
                             <h5 class="card-title">{{ category.name }}</h5>
                             <p class="card-text">{{ category.description }}</p>

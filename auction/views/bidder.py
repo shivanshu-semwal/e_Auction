@@ -12,7 +12,10 @@ from auction.decorators import allowed_users
 from auction import models
 from django.urls import reverse, reverse_lazy
 from django.db.models import Q
+from django import forms
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 @allowed_users(['bidders'])
 def bidder_home(request):
@@ -108,12 +111,17 @@ class ProductDetailView(DetailView):
 
 
 @method_decorator(allowed_users(['bidders']), name='dispatch')
-class BidderUpdateView(UpdateView):
+class BidderUpdateProfile(UpdateView):
     model = models.Bidder
     fields = ('first_name', 'last_name', 'dob', 'address', 'contact', 'image')
     template_name = 'bidder/profile/update.html'
     success_url = reverse_lazy('bidder_home')
     context_object_name = 'bidder'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'].fields['dob'].widget = DateInput()
+        return context
 
 
 @method_decorator(allowed_users(['bidders']), name='dispatch')

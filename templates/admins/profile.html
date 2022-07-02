@@ -41,6 +41,21 @@
         cursor: pointer;
         border: solid 1px #BA68C8
     }
+    .border-right-my {
+        border-right: 1px solid #dee2e6 !important;
+    }
+
+    @media only screen and (min-width : 480px) {
+        .border-right-my {
+            border-right: none !important;
+        }
+    }
+
+    @media only screen and (min-width : 768px) {
+        .border-right-my {
+            border-right: 1px solid #dee2e6 !important;
+        }
+    }
 </style>
 {% endblock %}
 {% block navbar %}
@@ -49,8 +64,8 @@
 {% block content %}
 <div class="container">
     <div class="container rounded bg-white mt-5 mb-5">
-        <div class="row">
-            <div class="col-md-3 border-right">
+        <div class="shadow-lg p-3 mb-5 bg-white rounded row">
+            <div class="col-md-3 border-right-my">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                     <img class="rounded-circle mt-5" width="150px" src="{% static 'img/dp.jpg' %}">
                     <span class="font-weight-bold">{{ user.first_name }}</span>
@@ -58,7 +73,7 @@
                     <span> </span>
                 </div>
             </div>
-            <div class="col-md-9 border-right">
+            <div class="col-md-9">
                 <div class="p-3 py-5">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="text-right">{{ user.username }}</h4>
@@ -74,11 +89,8 @@
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-                        <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" value=""></div>
-                        <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
+                        <div class="col-md-12"><label class="labels">Email ID</label><input disabled type="text" class="form-control" placeholder="No email id" value=""></div>
                     </div>
-                    <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Edit Profile</button></div>
                 </div>
             </div>
         </div>
