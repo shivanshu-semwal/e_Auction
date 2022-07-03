@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-ru!c^uu#2l1530h35%a@x*y$=-&m(x_95cs6-g49*ps1-b=etx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['shivanshu.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -52,10 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'e_auction.urls'
 

@@ -22,7 +22,9 @@
                             <div class="d-flex">&#8377; {{ product.min_price }}</div>
                         </div>
                         <a class="btn btn-primary btn-block"><span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> {{ product.getStatus }}</a>
+                        {% if product.getStatus != "NOT_STARTED" %}
                         <a href="{% url 'bid_create' product_pk=product.pk %}" class="btn btn-primary btn-block"><i class="fa-solid fa-coins"></i> Bid</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

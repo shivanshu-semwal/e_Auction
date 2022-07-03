@@ -21,7 +21,7 @@ class Bidder(models.Model):
     address = models.CharField(max_length=100, blank=True, null=True)
     contact = models.CharField(max_length=20, blank=True, null=True)
     image = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
-    balance = models.IntegerField(default=100)
+    balance = models.IntegerField(default=1000)
 
     def __str__(self):
         return self.user.username
@@ -37,7 +37,7 @@ class Seller(models.Model):
     address = models.CharField(max_length=100, blank=True, null=True)
     contact = models.CharField(max_length=20, blank=True, null=True)
     image = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
-    balance = models.IntegerField(default=100)
+    balance = models.IntegerField(default=1000)
 
     def __str__(self):
         return self.user.username
