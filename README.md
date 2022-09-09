@@ -7,6 +7,7 @@
 ## Report
 
 - [link](assets/Online_Auction.docx)
+- [database schema](https://dbdiagram.io/d/62bd631069be0b672c714859)
 
 ## Technologies Used
 
