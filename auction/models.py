@@ -5,6 +5,14 @@ from django.forms import ValidationError
 from django.db.models import Q, F
 from django.urls import reverse
 from django.utils import timezone
+from django.core.validators import MinLengthValidator
+from django.core.exceptions import ValidationError
+
+
+def only_int(value):
+    if value.isdigit() == False:
+        raise ValidationError('ID contains characters')
+
 
 """Models for the auction system"""
 
@@ -19,7 +27,8 @@ class Bidder(models.Model):
     last_name = models.CharField(max_length=100, blank=True, null=True)
     dob = models.DateField(blank=True, null=True)
     address = models.CharField(max_length=100, blank=True, null=True)
-    contact = models.CharField(max_length=20, blank=True, null=True)
+    contact = models.CharField(max_length=10, blank=True, null=True,  validators=[
+                               MinLengthValidator(10), only_int])
     image = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     balance = models.IntegerField(default=1000)
 
@@ -35,7 +44,8 @@ class Seller(models.Model):
     last_name = models.CharField(max_length=100, blank=True, null=True)
     dob = models.DateField(blank=True, null=True)
     address = models.CharField(max_length=100, blank=True, null=True)
-    contact = models.CharField(max_length=20, blank=True, null=True)
+    contact = models.CharField(max_length=10, blank=True, null=True, validators=[
+                               MinLengthValidator(10), only_int])
     image = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     balance = models.IntegerField(default=1000)
 
